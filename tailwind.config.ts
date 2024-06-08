@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+const {fontFamily}=require("tailwindcss/defaultTheme");
 
 const config: Config = {
   content: [
@@ -8,6 +9,13 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily:{
+        sans:['var(--font-inter)'],
+        sofia:['var(--font-sofia)'],
+        noto:['var(--font-noto)'],
+        prsofia:['var(--font-prsofia)']
+
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -15,6 +23,9 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
+  daisyui: {
+    themes: ["light", "dark", "cupcake"],
+  },
 };
 export default config;
