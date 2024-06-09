@@ -12,14 +12,6 @@ import Loader from '../utils/loader';
 import { nameValidator, urlValidator } from './validate';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
-
-function appId() {
-    //1. check if total app limit exeeds then block the addition apps
-    //2. show the banner if plan expired on top 
-    //3. create profile menu, profile menu will be a popup which will have all information about plan and userid, along with email, give logout button overthere
-
-
-}
 function Ui() {
     let currentDate = new Date();
     const [currentAppCount, setcurrentAppCount] = useState(0);
@@ -83,9 +75,6 @@ function Ui() {
 
     return (
         <>
-
-
-
             {/* The button to open modal */}
             <div className="modal" role="dialog" id="addAppPopUp">
                 { currentAppCount+1<=appLimit?
@@ -150,7 +139,7 @@ function Ui() {
                 </div> : <></>
             }
  
-            {/*  */}
+            {/*  popup code  ended above*/}
 
 
             <div className={`navbar ${headerThemeColor}`}>
