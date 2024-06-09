@@ -7,7 +7,7 @@ import logo from "@/public/logo.png";
 import AppTile from './app_tile';
 import AppGrid from './app_grid';
 import { AppData, BaseJson } from './type';
-import { fetchPlan, fetchRegisteredApps } from './network';
+import { addApp, fetchPlan, fetchRegisteredApps } from './network';
 import Loader from '../utils/loader';
 import { nameValidator, urlValidator } from './validate';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -68,6 +68,30 @@ function Ui() {
 
     };
 
+    const addNewApp=(email:string,url:string,appName:string)=>{
+        addApp(email,url,appName).then((res)=>res.json()).then((body)=>{
+            if (body != null) {
+                if (body.code == 200) {
+                    setBusy(true);
+                    fetchRegisteredApps("mudassir@amazon.in")
+                    .then((res) => res.json())
+                    .then((jsonResponse) => {
+                        const apps = jsonResponse.data ?? [];
+                        setcurrentAppCount(apps.length);
+                        setApps(apps);
+                    })
+                    .catch((error) => {
+                        console.error('Error fetching registered apps:', error);
+                    });
+                    setBusy(false);
+                    
+
+                }
+            } 
+
+        });
+    }
+
 
 
     return (
@@ -104,7 +128,10 @@ function Ui() {
                             <a href="#" className={`btn  bg-red-500 text-white  hover:bg-violet-600`}>Cancel</a>
                         </div>
                         <div className="modal-action p-3">
-                            <a type='submit' href="#" className={`btn ${appName.length > 0 && appUrl.length > 0 && validateAppName(appName) == true && validateAppURL(appUrl) == true ? "" : "btn-disabled"} bg-yellow-600 text-white  hover:bg-violet-600`}>Add now</a>
+                            <a  href="#" type='submit' onClick={()=>{
+                                addNewApp("mudassir@amazon.in",appUrl,appName);
+                               
+                            }} className={`btn ${appName.length > 0 && appUrl.length > 0 && validateAppName(appName) == true && validateAppURL(appUrl) == true ? "" : "btn-disabled"} bg-yellow-600 text-white  hover:bg-violet-600`}>Add now</a>
                         </div>
                     </div>
                 

@@ -48,7 +48,7 @@ export async function fetchPlan(email:string){
 }
 
 export async function addApp(email:string,url:string,appName:string){
-    const res= await fetch("http://127.0.0.1:3300/render/addApp",{
+    const res= await fetch("http://127.0.0.1:3300/setup/addApp",{
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
