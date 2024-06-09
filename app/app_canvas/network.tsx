@@ -46,3 +46,19 @@ export async function fetchPlan(email:string){
 
     return res;
 }
+
+export async function addApp(email:string,url:string,appName:string){
+    const res= await fetch("http://127.0.0.1:3300/render/addApp",{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            "userEmail":email,
+            "webURL":url,
+            "appName":appName   
+        })
+    });
+
+    return res;
+}
