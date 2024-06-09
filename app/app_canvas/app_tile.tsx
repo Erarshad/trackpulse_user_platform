@@ -53,7 +53,7 @@ function AppTile(data:AppData){
    
      <div className={`card bg-transparent shadow-xl border border-yellow-600`}>
 
-    <figure className="px-10 pt-10"> {isBusy==false?<Image src={appIconInfinity} alt={'app'} width={200} height={30}  style={{ objectFit: 'contain' }}/>:<span className="loading loading-spinner loading-lg"></span> } </figure>
+    <figure className="px-10 pt-10"> {isBusy==false?<Image src={appIconInfinity} alt={'app'} width={200} height={30}  style={{ objectFit: 'contain' }}/>:<span className={`loading ${headerThemeColor} loading-spinner loading-lg`}></span> } </figure>
     
     <div className="card-body ">
         <p className='font-semibold text-ellipsis overflow-hidden'>{appName}</p>
