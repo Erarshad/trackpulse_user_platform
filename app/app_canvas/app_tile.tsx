@@ -7,6 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChartColumn } from '@fortawesome/free-solid-svg-icons';
 import { updateQuota } from './network';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
+import { encodeToHash } from '../utils/hashed_path';
 
 
  function updateTheQuotaIfRequired(data:AppData){
@@ -47,32 +49,40 @@ function AppTile(data:AppData){
       
     },[]);
    
-    return (<>
-   
-     <div className={`card bg-transparent shadow-xl border border-yellow-600`}>
+    return (
+      <Link href={{
+        pathname:"/app_dashboard",
+        query:{
+          appData: (JSON.stringify(data))
+        }
+      }}>
+        <>
+          <div className={`card bg-transparent shadow-xl border border-yellow-600`}>
 
-    <figure className="px-10 pt-10"> {isBusy==false?<Image src={appIconInfinity} alt={'app'} width={200} height={30}  style={{ objectFit: 'contain' }}/>:<span className={`loading ${headerThemeColor} loading-spinner loading-lg`}></span> } </figure>
-    
-    <div className="card-body ">
-        <p className='font-semibold text-ellipsis overflow-hidden'>{data.appName}</p>
-        <p className='text-sm text-ellipsis overflow-hidden'>{data.URL}</p>
-        <div className="card-actions justify-end">
-        <p className='text-sm'>Quota: {stateData.quota}/day</p>
-        <button className="btn btn-circle btn-outline hover:bg-yellow-600">
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-        </button>
-        </div>
-    </div>
-    
+            <figure className="px-10 pt-10"> {isBusy == false ? <Image src={appIconInfinity} alt={'app'} width={200} height={30} style={{ objectFit: 'contain' }} /> : <span className={`loading ${headerThemeColor} loading-spinner loading-lg`}></span>} </figure>
 
-    
-    </div>
+            <div className="card-body ">
+              <p className='font-semibold text-ellipsis overflow-hidden'>{data.appName}</p>
+              <p className='text-sm text-ellipsis overflow-hidden'>{data.URL}</p>
+              <div className="card-actions justify-end">
+                <p className='text-sm'>Quota: {stateData.quota}/day</p>
+                <button className="btn btn-circle btn-outline hover:bg-yellow-600">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                </button>
+              </div>
+            </div>
 
-    
 
-    
 
-    </>);
+          </div>
+
+
+
+
+
+        </>
+    </Link>
+    );
 }
 
 export default AppTile;
