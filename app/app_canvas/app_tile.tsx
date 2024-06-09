@@ -28,8 +28,6 @@ import { useRouter } from 'next/router';
 
 
 function AppTile(data:AppData){
-    let appName=data.URL.split("http://")[0];
-    appName=data.URL.split("https://")[0];
     const [stateData, setData] = useState(data);
     const [isBusy,setBusy]=useState(false);
     useEffect(()=>{
@@ -56,7 +54,7 @@ function AppTile(data:AppData){
     <figure className="px-10 pt-10"> {isBusy==false?<Image src={appIconInfinity} alt={'app'} width={200} height={30}  style={{ objectFit: 'contain' }}/>:<span className={`loading ${headerThemeColor} loading-spinner loading-lg`}></span> } </figure>
     
     <div className="card-body ">
-        <p className='font-semibold text-ellipsis overflow-hidden'>{appName}</p>
+        <p className='font-semibold text-ellipsis overflow-hidden'>{data.appName}</p>
         <p className='text-sm text-ellipsis overflow-hidden'>{data.URL}</p>
         <div className="card-actions justify-end">
         <p className='text-sm'>Quota: {stateData.quota}/day</p>

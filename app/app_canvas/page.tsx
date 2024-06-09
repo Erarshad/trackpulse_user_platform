@@ -74,7 +74,7 @@ function Ui() {
         <>
             {/* The button to open modal */}
             <div className="modal" role="dialog" id="addAppPopUp">
-                { currentAppCount+1<=appLimit?
+                { ((currentAppCount+1<=appLimit) && (isExpired != null && isExpired >= currentDate))?
                 <div className="modal-box shadow-xl border border-yellow-600">
                     <h3 className="font-bold text-lg">Register App</h3>
                     <div className='p-3'>
@@ -111,10 +111,15 @@ function Ui() {
 
                 </div>: <div className="toast">
                 <div className="alert alert-info">
-                <span>
-                        You cannot add more than {appLimit} app.
-                        <a type='submit' href="#"><FontAwesomeIcon icon={faClose} className=' ml-2'></FontAwesomeIcon></a>
-                   </span>
+                   { (isExpired!=null &&  isExpired >= currentDate)?
+                            <span>
+                                You cannot add more than {appLimit} app.
+                                <a type='submit' href="#"><FontAwesomeIcon icon={faClose} className=' ml-2'></FontAwesomeIcon></a>
+                            </span>: <span>
+                            Your plan has expired. Please upgrade to continue using our service.
+                                <a type='submit' href="#"><FontAwesomeIcon icon={faClose} className=' ml-2'></FontAwesomeIcon></a>
+                            </span>
+                    }
                 </div>
             </div>
                 }    

@@ -5,6 +5,7 @@ export interface AppData{
     quota:number,
     quotaAddedAt:string,
     URL:string,
+    appName:string,
     email:string,
     Name:string,
     plan:string,

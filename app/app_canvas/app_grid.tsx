@@ -13,7 +13,7 @@ function AppGrid(appDataList: appDataWrapped) {
         return (
             <div className="container mx-auto py-8">
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-20">
-                    {appDataList.appData.map(app => <AppTile AppId={app.AppId} userEmail={app.userEmail} quota={app.quota} quotaAddedAt={app.quotaAddedAt} URL={app.URL} Expiry={app.Expiry} Name={app.Name} createdAt={app.createdAt} email={app.email} plan={app.plan} key={app.AppId}></AppTile>)}
+                    {appDataList.appData.map(app => <AppTile AppId={app.AppId} userEmail={app.userEmail} quota={app.quota} quotaAddedAt={app.quotaAddedAt} URL={app.URL} Expiry={app.Expiry} Name={app.Name} createdAt={app.createdAt} email={app.email} plan={app.plan} key={app.AppId} appName={app.appName}></AppTile>)}
                 </div>
             </div>
         );
