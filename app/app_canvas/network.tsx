@@ -55,7 +55,7 @@ export async function addApp(email:string,url:string,appName:string){
         },
         body: JSON.stringify({
             "userEmail":email,
-            "webURL":url,
+            "url":url,
             "appName":appName   
         })
     });

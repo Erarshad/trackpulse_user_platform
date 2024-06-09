@@ -1,5 +1,5 @@
 export function nameValidator(appName:string){
-    const    regex = /^(?!-)[A-Za-z0-9-]{1,63}(?<!-)(\.[A-Za-z0-9-]{2,6})?$/;
+    const  regex = /^(?!-)[A-Za-z0-9-]{1,63}(?<!-)(\.[A-Za-z0-9-]{2,6})?$/;
     const validOrNot= regex.test(appName);
     return validOrNot;
 }
