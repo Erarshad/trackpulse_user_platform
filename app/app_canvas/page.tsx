@@ -27,10 +27,8 @@ function Ui() {
             .then((res) => res.json())
             .then((jsonResponse) => {
                 const apps = jsonResponse.data ?? [];
-                // Process the apps data here
                 setcurrentAppCount(apps.length);
                 setApps(apps);
-
             })
             .catch((error) => {
                 console.error('Error fetching registered apps:', error);
@@ -42,7 +40,6 @@ function Ui() {
                     const plan = body?.data ?? {};
                     setAppLimit(plan.apps_limit);
                     setExpired(new Date(plan.Expiry));
-
                 }
             }
 
@@ -134,7 +131,7 @@ function Ui() {
             {/* till here popup code */}
             {/* toast */}
             {isExpired != null && isExpired < currentDate ?
-                <div className="w-full p-3 bg-gradient-to-r from-red-500 to-orange-500 text-white font-bold flex items-center justify-center">
+                <div className="w-full p-1 bg-gradient-to-r from-red-500 to-orange-500 text-white font-bold flex items-center justify-center">
                     Your plan has expired. Please upgrade to continue using our service. If you do not update the plan, your data will be removed after 30 days.
                 </div> : <></>
             }
