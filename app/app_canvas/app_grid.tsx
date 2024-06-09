@@ -3,8 +3,10 @@ import AppTile from "./app_tile";
 import { AppData } from "./type";
 import { faExclamationCircle} from "@fortawesome/free-solid-svg-icons";
 interface appDataWrapped {
-    appData: AppData[]
+    appData: AppData[],
+    isBusy:boolean
 }
+
 
 function AppGrid(appDataList: appDataWrapped) {
     if (appDataList.appData.length > 0) {
@@ -16,11 +18,13 @@ function AppGrid(appDataList: appDataWrapped) {
             </div>
         );
 
-    } else {
+    } else if(appDataList.isBusy==false && appDataList.appData.length ==0 ) {
         return (
             <div className="h-screen flex items-center justify-center">
              <FontAwesomeIcon className="h-10 w-10" icon={faExclamationCircle} />
-            <h1 className="font-bold px-2">No app was added. click on +add new button to add app</h1>
+                
+             <h1 className="font-bold px-2">No app was added. click on +add new button to add app</h1>
+              
             </div>
         );
 

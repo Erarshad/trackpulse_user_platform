@@ -8,6 +8,8 @@ import AppTile from './app_tile';
 import AppGrid from './app_grid';
 import { AppData, BaseJson } from './type';
 import { fetchRegisteredApps } from './network';
+import Loader from '../utils/loader';
+import { nameValidator, urlValidator } from './validate';
 
 function appId(){
     //1. check if total app limit exeeds then block the addition apps
@@ -22,7 +24,7 @@ function Ui() {
     const [appUrl, setAppUrl] = useState('');
     const [apps,setApps]=useState<AppData[]>([]);
     let errorMsg="";
-
+    const [isBusy,setBusy]=useState(true);
     useEffect(()=>{
         fetchRegisteredApps("mudassir@amazon.in")
         .then((res) => res.json())
@@ -34,11 +36,11 @@ function Ui() {
         .catch((error) => {
             console.error('Error fetching registered apps:', error);
         }); 
+        setBusy(false);
     },[]);
 
       const validateAppName = (appName:string) => {
-        const regex = /^(?!-)[A-Za-z0-9-]{1,63}(?<!-)(\.[A-Za-z0-9-]{2,6})?$/;
-        const validOrNot= regex.test(appName);
+        const validOrNot= nameValidator(appName);
         if(validOrNot==false){
            errorMsg= "Please enter valid app name, as mentioned in hints.";
         }
@@ -46,8 +48,7 @@ function Ui() {
         return validOrNot;
       };
       const validateAppURL = (appUrl:string) => {
-        const regex = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w\.-]*)*\/?$/;
-        const validOrNot= regex.test(appUrl) &&(appUrl.includes("https://")|| appUrl.includes("http://"));
+        const validOrNot= urlValidator(appUrl) &&(appUrl.includes("https://")|| appUrl.includes("http://"));
         if(validOrNot==false){
           errorMsg= "Please enter valid app URL, as mentioned in hints.";
         }
@@ -114,7 +115,7 @@ function Ui() {
                 </div>
 
 
-
+             
 
                 <div className="avatar placeholder navbar-end">
                     <a className="btn glass btn-neutral mx-2 h-9 text-black btn-sm hover:bg-violet-600" href="#addAppPopUp">+ Add New</a>
@@ -124,11 +125,15 @@ function Ui() {
                 </div>
 
             </div>
+             { isBusy?
+               <Loader></Loader>: <AppGrid appData={apps} isBusy={isBusy}></AppGrid>
+             }
 
+             
 
-            <AppGrid appData={apps}></AppGrid>
             
-            
+           
+          
 
 
         </>
