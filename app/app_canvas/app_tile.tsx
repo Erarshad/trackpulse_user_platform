@@ -31,7 +31,9 @@ function AppTile(data:AppData){
     let appName=data.URL.split("http://")[0];
     appName=data.URL.split("https://")[0];
     const [stateData, setData] = useState(data);
+    const [isBusy,setBusy]=useState(false);
     useEffect(()=>{
+      setBusy(true);
        updateTheQuotaIfRequired(data)?.then((res) => res.json())
        .then((jsonResponse) => {
            const response = jsonResponse.data ?? [];
@@ -40,15 +42,19 @@ function AppTile(data:AppData){
              data = Object.assign({}, data, { quota: response.quotaPerDay });
              setData(data);
            }
-           
+    
           
        })
+       setBusy(false);
+      
     },[]);
    
     return (<>
    
      <div className={`card bg-transparent shadow-xl border border-yellow-600`}>
-    <figure className="px-10 pt-10"><Image src={appIconInfinity} alt={'app'} width={200} height={30}  style={{ objectFit: 'contain' }}/></figure>
+
+    <figure className="px-10 pt-10"> {isBusy==false?<Image src={appIconInfinity} alt={'app'} width={200} height={30}  style={{ objectFit: 'contain' }}/>:<span className="loading loading-spinner loading-lg"></span> } </figure>
+    
     <div className="card-body ">
         <p className='font-semibold text-ellipsis overflow-hidden'>{appName}</p>
         <p className='text-sm text-ellipsis overflow-hidden'>{data.URL}</p>
