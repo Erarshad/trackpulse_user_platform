@@ -7,7 +7,7 @@ import logo from "@/public/logo.png";
 import AppTile from './app_tile';
 import AppGrid from './app_grid';
 import { AppData, BaseJson } from './type';
-import { fetchRegisteredApps } from './network';
+import { fetchPlan, fetchRegisteredApps } from './network';
 import Loader from '../utils/loader';
 import { nameValidator, urlValidator } from './validate';
 
@@ -20,6 +20,10 @@ function appId(){
 }
 function Ui() {
 
+    let currentDate=new Date();
+    const [appLimit,setAppLimit]=useState(null);
+    const [isExpired,setExpired]=useState<Date>();
+    
     const [appName, setAppName] = useState('');
     const [appUrl, setAppUrl] = useState('');
     const [apps,setApps]=useState<AppData[]>([]);
@@ -36,6 +40,22 @@ function Ui() {
         .catch((error) => {
             console.error('Error fetching registered apps:', error);
         }); 
+
+        fetchPlan("mudassir@amazon.in").then((res)=>res.json()).then((body)=>{
+            if (body != null) {
+                if (body.code == 200) {
+                    const plan = body?.data ?? {};
+                    setAppLimit(plan.apps_limit);
+                    setExpired(new Date(plan.Expiry));
+
+                }
+            }
+
+            
+        }).catch((error) => {
+            console.error('Error fetching registered apps:', error);
+        }); 
+
         setBusy(false);
     },[]);
 
@@ -107,6 +127,13 @@ function Ui() {
 
             </div>
             {/* till here popup code */}
+            {/* toast */}
+            { isExpired!=null && isExpired<currentDate? 
+            <div className="w-full p-3 bg-gradient-to-r from-red-500 to-orange-500 text-white font-bold flex items-center justify-center">
+                Your plan has expired. Please upgrade to continue using our service. If you do not update the plan, your data will be removed after 30 days.
+            </div>:<></>
+            }
+            {/*  */}
 
 
             <div className={`navbar ${headerThemeColor}`}>
