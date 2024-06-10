@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import appIconInfinity from "@/public/logoIcn.png";
 import Image from 'next/image';
 import {headerThemeColor} from '../global_const';
@@ -9,11 +9,12 @@ import { updateQuota } from './network';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { encodeToHash } from '../utils/hashed_path';
+import { onlyDate } from '../utils/date_compare';
 
 
  function updateTheQuotaIfRequired(data:AppData){
-    if(new Date(data.Expiry)>=new Date()){
-        if(new Date(data.quotaAddedAt)< new Date()){
+    if(onlyDate(data.Expiry)>=onlyDate()){
+        if(onlyDate(data.quotaAddedAt)< onlyDate()){
           //  then update the quota now 
             let email=data.email;
             let appId=data.AppId;

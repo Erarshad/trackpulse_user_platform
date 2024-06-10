@@ -12,8 +12,9 @@ import Loader from '../utils/loader';
 import { nameValidator, urlValidator } from './validate';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
+import { onlyDate } from '../utils/date_compare';
 function Ui() {
-    let currentDate = new Date();
+    let currentDate = onlyDate(); //it will give you the current date 
     const [currentAppCount, setcurrentAppCount] = useState(0);
     const [appLimit, setAppLimit] = useState(0);
     const [isExpired, setExpired] = useState<Date>();
@@ -39,7 +40,7 @@ function Ui() {
                 if (body.code == 200) {
                     const plan = body?.data ?? {};
                     setAppLimit(plan.apps_limit);
-                    setExpired(new Date(plan.Expiry));
+                    setExpired(onlyDate(plan.Expiry));
                 }
             }
 
