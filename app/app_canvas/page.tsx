@@ -172,7 +172,7 @@ function Ui() {
             {/*  popup code  ended above*/}
 
 
-            <div className={`navbar ${headerThemeColor}`}>
+            <div className={`navbar sticky top-0 z-50 ${headerThemeColor}`}>
                 <div className="navbar-start">
                     <Image src={logo} alt={appName} objectFit="contain" width={250} height={80}></Image>
                 </div>
