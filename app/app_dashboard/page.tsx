@@ -59,7 +59,7 @@ export default function DashBoard({
             </span>
            
         </div>
-        <div className="bg-accent p-4 text-white">  <div className='overflow-clip'>
+        <div className="bg-indigo-500 p-4 text-white">  <div className='overflow-clip'>
             <FontAwesomeIcon icon={faCalculator} className='mx-2 h-10 w-10'></FontAwesomeIcon>
             <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl items-center justify-center">
               {millify(395777467587)}
