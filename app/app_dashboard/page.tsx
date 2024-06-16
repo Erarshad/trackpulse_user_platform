@@ -10,6 +10,7 @@ import logo from "@/public/logo.png";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {  faCalculator } from '@fortawesome/free-solid-svg-icons';
 import millify from 'millify';
+import Session_list from './session_list';
 export default function DashBoard({
     searchParams
 }: {
@@ -71,6 +72,16 @@ export default function DashBoard({
            </div>
       </div>
     </div>
+   {/* INFO TILES ENDED */}
+     
+   <Session_list></Session_list>
+
+   <div className="p-5 join items-end justify-end flex">
+    <button className={`join-item btn btn-outline border-yellow-600 `}>Previous page</button>
+      <button className={`join-item btn btn-outline border-yellow-600`}>Next</button>
+   </div>
+    
+
 
 
     </>
