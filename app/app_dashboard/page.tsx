@@ -13,6 +13,7 @@ import millify from 'millify';
 import Session_list from './session_list';
 import {fetchSessionCount } from '../../services/network';
 import { onlyDate } from '../utils/date_compare';
+import Loader from '../utils/loader';
 export default function DashBoard({
     searchParams
 }: {
@@ -24,9 +25,11 @@ export default function DashBoard({
   const [totalSessions, setTotalSessions] = useState(0);
   const [SessionsInAWeek, setSessionsInAWeek] = useState(0);
   const [sessionsWithinMonth, setSessionsWithinMonth] = useState(0);
+  const [isBusy, setBusy] = useState(true);
    let appData= JSON.parse(searchParams.query) as AppData;
     
   useEffect(() => {
+    setBusy(true);
     fetchSessionCount(appData.AppId).then((res) => res.json()) 
     .then((jsonResponse) => {
        if(jsonResponse.data!=null){
@@ -42,10 +45,14 @@ export default function DashBoard({
     .catch((error) => {
         console.error('Error fetching registered apps:', error);
     });
+    setBusy(false);
   }, []);
 
-
-
+  
+   if(isBusy==true){
+    return ( <Loader></Loader>);
+            
+   }else{
 
     return (<>
         {/* navbar started */}
@@ -109,11 +116,15 @@ export default function DashBoard({
     {/* --- */}
    <Session_list></Session_list>
 
+              
+
 
 
 
     </>
        
     );
+
+  }
 }
 
