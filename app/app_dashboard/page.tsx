@@ -2,7 +2,7 @@
 import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import { decodeHash } from '../utils/hashed_path';
-import { AppData } from '../app_canvas/type';
+import { AppData, eventData } from '../utils/type';
 import { appName, headerThemeColor } from '../global_const';
 import Image from 'next/image';
 import user_icon from "@/public/user_icon.svg";
@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {  faCalculator } from '@fortawesome/free-solid-svg-icons';
 import millify from 'millify';
 import Session_list from './session_list';
-import {fetchSessionCount } from '../../services/network';
+import {fetchEvents, fetchSessionCount } from '../../services/network';
 import { onlyDate } from '../utils/date_compare';
 import Loader from '../utils/loader';
 export default function DashBoard({
@@ -25,8 +25,10 @@ export default function DashBoard({
   const [totalSessions, setTotalSessions] = useState(0);
   const [SessionsInAWeek, setSessionsInAWeek] = useState(0);
   const [sessionsWithinMonth, setSessionsWithinMonth] = useState(0);
+  const [events, setEvents]= useState<eventData[]>([]);
   const [isBusy, setBusy] = useState(true);
-   let appData= JSON.parse(searchParams.query) as AppData;
+  let appData= JSON.parse(searchParams.query) as AppData;
+  let currentPage=1;
     
   useEffect(() => {
     setBusy(true);
@@ -43,8 +45,16 @@ export default function DashBoard({
        }
     })
     .catch((error) => {
-        console.error('Error fetching registered apps:', error);
+        console.error('Error fetching counts of session:', error);
     });
+
+    fetchEvents(currentPage,appData.userEmail,appData.AppId).then((res)=>res.json()).then((jsonResponse)=>{
+      let eventsData = jsonResponse.data ?? [];
+      setEvents(eventsData);
+    }).catch((error) => {
+      console.error('Error fetching events:', error);
+   });
+
     setBusy(false);
   }, []);
 
@@ -108,13 +118,13 @@ export default function DashBoard({
       </div>
     </div>
    {/* INFO TILES ENDED */}
-   
+   { totalSessions>0?
    <div className="px-2 join items-end justify-end flex">
-    <button className={`join-item btn btn-outline border-yellow-600 `}>Previous page</button>
+    <button className={`join-item btn btn-outline ${currentPage==1?"btn-disabled":""} border-yellow-600 `}>Previous page</button>
       <button className={`join-item btn btn-outline border-yellow-600`}>Next</button>
-   </div>
+   </div>:<></>}
     {/* --- */}
-   <Session_list></Session_list>
+   <Session_list event={events} ></Session_list>
 
               
 

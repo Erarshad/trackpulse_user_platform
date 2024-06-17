@@ -77,3 +77,19 @@ export async function fetchSessionCount(appId:string,userEmail:string){
 
     return res;
 }
+
+export async function fetchEvents(page:number,email:string,appId:string){
+    const res= await fetch("http://127.0.0.1:3300/render/getEvents",{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            "page":page,
+            "email":email,
+            "appId":appId
+        })
+    });
+
+    return res;
+}

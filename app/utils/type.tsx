@@ -13,6 +13,16 @@ export interface AppData{
     Expiry:string
 }
 
+export interface eventData{
+    userEmail:string,
+    AppId:string,
+    date:string,
+    guestId:string,
+    appVisitordetail:string,
+    appEvents:string,
+    appErrors:string,
+    appSession:string
+}
 export interface BaseJson{
     code:number,
     message:string,

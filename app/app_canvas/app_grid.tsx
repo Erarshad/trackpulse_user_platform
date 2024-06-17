@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AppTile from "./app_tile";
-import { AppData } from "./type";
+import { AppData } from "../utils/type";
 import { faExclamationCircle} from "@fortawesome/free-solid-svg-icons";
 interface appDataWrapped {
     appData: AppData[],

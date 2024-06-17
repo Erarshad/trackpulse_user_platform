@@ -1,4 +1,10 @@
-export default function Session_list(){
+import { eventData } from "../utils/type";
+
+interface events{
+  event:eventData[]
+}
+
+export default function Session_list(eventItems:events){
     return (<div className="overflow-x-auto">
         <table className="table">
           {/* head */}
@@ -13,62 +19,17 @@ export default function Session_list(){
           </thead>
           <tbody>
             {/* row 1 */}
-            <tr className="hover">
-              <td>20/01/2002</td>
-              <td>India</td>
-              <td>Iphone</td>
-              <td>True</td>
-              <td>192.168.43</td>
-            
-            </tr>
-            {/* row 2 */}
-            <tr className="hover">
+            {
+              eventItems.event.map((event)=>( <tr className="hover">
+                <td>{new Date(event.date).toDateString()}</td>
+                <td>{JSON.parse(event.appVisitordetail).country}</td>
+                <td>{JSON.parse(event.appVisitordetail).device}</td>
+                <td>{JSON.parse(event.appVisitordetail).isReturning}</td>
+                <td>{JSON.parse(event.appVisitordetail).ip}</td>
               
-              <td>20/01/2002</td>
-              <td>India</td>
-              <td>Iphone</td>
-              <td>True</td>
-              <td>192.168.43</td>
-            </tr>
-            {/* row 3 */}
-            <tr className="hover">
-              
-              <td>20/01/2002</td>
-              <td>India</td>
-              <td>Iphone</td>
-              <td>True</td>
-              <td>192.168.43</td>
-            </tr>
-            <tr className="hover">
+              </tr>))
              
-              <td>20/01/2002</td>
-              <td>India</td>
-              <td>Iphone</td>
-              <td>True</td>
-              <td>192.168.43</td>
-            </tr>
-            <tr className="hover">
-              <td>20/01/2002</td>
-              <td>India</td>
-              <td>Iphone</td>
-              <td>True</td>
-              <td>192.168.43</td>
-            </tr>
-            <tr className="hover">
-            
-             <td>20/01/2002</td>
-              <td>India</td>
-              <td>Iphone</td>
-              <td>True</td>
-              <td>192.168.43</td>
-            </tr>
-            <tr className="hover">
-            <td>20/01/2002</td>
-              <td>India</td>
-              <td>Iphone</td>
-              <td>True</td>
-              <td>192.168.43</td>
-            </tr>
+          } 
           </tbody>
         </table>
       </div>);

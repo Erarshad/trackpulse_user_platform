@@ -2,7 +2,7 @@ import  { useEffect, useState } from 'react'
 import appIconInfinity from "@/public/logoIcn.png";
 import Image from 'next/image';
 import {headerThemeColor} from '../global_const';
-import { AppData } from './type';
+import { AppData } from '../utils/type';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChartColumn } from '@fortawesome/free-solid-svg-icons';
 import { updateQuota } from '../../services/network';
