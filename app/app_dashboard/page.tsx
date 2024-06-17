@@ -1,6 +1,6 @@
 'use client'
 import { useParams } from 'next/navigation';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { decodeHash } from '../utils/hashed_path';
 import { AppData } from '../app_canvas/type';
 import { appName, headerThemeColor } from '../global_const';
@@ -11,14 +11,42 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {  faCalculator } from '@fortawesome/free-solid-svg-icons';
 import millify from 'millify';
 import Session_list from './session_list';
+import {fetchSessionCount } from '../app_dashboard/network';
+import { onlyDate } from '../utils/date_compare';
 export default function DashBoard({
     searchParams
 }: {
     searchParams: {
-        appData: AppData
+        query: string
     }
 }) {
-    console.log("data is  " + searchParams.appData);
+
+  const [totalSessions, setTotalSessions] = useState(0);
+  const [SessionsInAWeek, setSessionsInAWeek] = useState(0);
+  const [sessionsWithinMonth, setSessionsWithinMonth] = useState(0);
+   let appData= JSON.parse(searchParams.query) as AppData;
+    
+  useEffect(() => {
+    fetchSessionCount(appData.AppId).then((res) => res.json())
+    .then((jsonResponse) => {
+       if(jsonResponse.data!=null){
+         let counts = jsonResponse.data ?? [];
+         if(counts.length>0){
+          counts=counts[0];
+          setTotalSessions(counts.total_events);
+          setSessionsInAWeek(counts.events_last_7_days);
+          setSessionsWithinMonth(counts.events_last_30_days);
+         }
+       }
+    })
+    .catch((error) => {
+        console.error('Error fetching registered apps:', error);
+    });
+  }, []);
+
+
+
+
     return (<>
         {/* navbar started */}
         <div className={`navbar sticky top-0 z-50 ${headerThemeColor}`}>
@@ -40,7 +68,7 @@ export default function DashBoard({
             <div className='overflow-clip'>
             <FontAwesomeIcon icon={faCalculator} className='mx-2 h-10 w-10'></FontAwesomeIcon>
             <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl items-center justify-center">
-              {millify(3957774675555555)}
+              {millify(totalSessions)}
             </span>
             </div>
             <span className="px-3 text-sm sm:text-lg md:text-xl lg:text-2xl">
@@ -52,7 +80,7 @@ export default function DashBoard({
         <div className='overflow-clip'>
             <FontAwesomeIcon icon={faCalculator} className='mx-2 h-10 w-10'></FontAwesomeIcon>
             <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl items-center justify-center">
-              {millify(3957774675)}
+              {millify(sessionsWithinMonth)}
             </span>
             </div>
             <span className="px-3 text-xs sm:text-lg md:text-xl lg:text-2xl">
@@ -63,7 +91,7 @@ export default function DashBoard({
         <div className="bg-indigo-500 p-4 text-white">  <div className='overflow-clip'>
             <FontAwesomeIcon icon={faCalculator} className='mx-2 h-10 w-10'></FontAwesomeIcon>
             <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl items-center justify-center">
-              {millify(395777467587)}
+              {millify(SessionsInAWeek)}
             </span>
             </div>
             <span className="px-3 text-xs sm:text-lg md:text-xl lg:text-2xl">
@@ -73,14 +101,14 @@ export default function DashBoard({
       </div>
     </div>
    {/* INFO TILES ENDED */}
-     
-   <Session_list></Session_list>
-
-   <div className="p-5 join items-end justify-end flex">
+   
+   <div className="px-2 join items-end justify-end flex">
     <button className={`join-item btn btn-outline border-yellow-600 `}>Previous page</button>
       <button className={`join-item btn btn-outline border-yellow-600`}>Next</button>
    </div>
-    
+    {/* --- */}
+   <Session_list></Session_list>
+
 
 
 

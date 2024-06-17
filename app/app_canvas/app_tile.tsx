@@ -54,7 +54,7 @@ function AppTile(data:AppData){
       <Link href={{
         pathname:"/app_dashboard",
         query:{
-          appData: (JSON.stringify(data))
+          query: (JSON.stringify(data))
         }
       }}>
         <>

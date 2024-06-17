@@ -4,57 +4,70 @@ export default function Session_list(){
           {/* head */}
           <thead>
             <tr>
-              <th></th>
-              <th>Name</th>
-              <th>Job</th>
-              <th>Favorite Color</th>
+              <th>Date</th>
+              <th>Country</th>
+              <th>Device</th>
+              <th>is returning</th>
+              <th>IP</th>
             </tr>
           </thead>
           <tbody>
             {/* row 1 */}
-            <tr>
-              <th>1</th>
-              <td>Cy Ganderton</td>
-              <td>Quality Control Specialist</td>
-              <td>Blue</td>
+            <tr className="hover">
+              <td>20/01/2002</td>
+              <td>India</td>
+              <td>Iphone</td>
+              <td>True</td>
+              <td>192.168.43</td>
+            
             </tr>
             {/* row 2 */}
             <tr className="hover">
-              <th>2</th>
-              <td>Hart Hagerty</td>
-              <td>Desktop Support Technician</td>
-              <td>Purple</td>
+              
+              <td>20/01/2002</td>
+              <td>India</td>
+              <td>Iphone</td>
+              <td>True</td>
+              <td>192.168.43</td>
             </tr>
             {/* row 3 */}
-            <tr>
-              <th>3</th>
-              <td>Brice Swyre</td>
-              <td>Tax Accountant</td>
-              <td>Red</td>
+            <tr className="hover">
+              
+              <td>20/01/2002</td>
+              <td>India</td>
+              <td>Iphone</td>
+              <td>True</td>
+              <td>192.168.43</td>
             </tr>
-            <tr>
-              <th>3</th>
-              <td>Brice Swyre</td>
-              <td>Tax Accountant</td>
-              <td>Red</td>
+            <tr className="hover">
+             
+              <td>20/01/2002</td>
+              <td>India</td>
+              <td>Iphone</td>
+              <td>True</td>
+              <td>192.168.43</td>
             </tr>
-            <tr>
-              <th>3</th>
-              <td>Brice Swyre</td>
-              <td>Tax Accountant</td>
-              <td>Red</td>
+            <tr className="hover">
+              <td>20/01/2002</td>
+              <td>India</td>
+              <td>Iphone</td>
+              <td>True</td>
+              <td>192.168.43</td>
             </tr>
-            <tr>
-              <th>3</th>
-              <td>Brice Swyre</td>
-              <td>Tax Accountant</td>
-              <td>Red</td>
+            <tr className="hover">
+            
+             <td>20/01/2002</td>
+              <td>India</td>
+              <td>Iphone</td>
+              <td>True</td>
+              <td>192.168.43</td>
             </tr>
-            <tr>
-              <th>3</th>
-              <td>Brice Swyre</td>
-              <td>Tax Accountant</td>
-              <td>Red</td>
+            <tr className="hover">
+            <td>20/01/2002</td>
+              <td>India</td>
+              <td>Iphone</td>
+              <td>True</td>
+              <td>192.168.43</td>
             </tr>
           </tbody>
         </table>
