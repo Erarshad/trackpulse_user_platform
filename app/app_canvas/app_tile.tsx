@@ -5,7 +5,7 @@ import {headerThemeColor} from '../global_const';
 import { AppData } from './type';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChartColumn } from '@fortawesome/free-solid-svg-icons';
-import { updateQuota } from './network';
+import { updateQuota } from '../../services/network';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { encodeToHash } from '../utils/hashed_path';

@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {  faCalculator } from '@fortawesome/free-solid-svg-icons';
 import millify from 'millify';
 import Session_list from './session_list';
-import {fetchSessionCount } from '../app_dashboard/network';
+import {fetchSessionCount } from '../../services/network';
 import { onlyDate } from '../utils/date_compare';
 export default function DashBoard({
     searchParams
@@ -27,7 +27,7 @@ export default function DashBoard({
    let appData= JSON.parse(searchParams.query) as AppData;
     
   useEffect(() => {
-    fetchSessionCount(appData.AppId).then((res) => res.json())
+    fetchSessionCount(appData.AppId).then((res) => res.json()) 
     .then((jsonResponse) => {
        if(jsonResponse.data!=null){
          let counts = jsonResponse.data ?? [];

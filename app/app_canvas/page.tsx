@@ -7,7 +7,7 @@ import logo from "@/public/logo.png";
 import AppTile from './app_tile';
 import AppGrid from './app_grid';
 import { AppData, BaseJson } from './type';
-import { addApp, fetchPlan, fetchRegisteredApps } from './network';
+import { addApp, fetchPlan, fetchRegisteredApps } from '../../services/network';
 import Loader from '../utils/loader';
 import { nameValidator, urlValidator } from './validate';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
