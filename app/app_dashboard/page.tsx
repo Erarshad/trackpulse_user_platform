@@ -30,7 +30,7 @@ export default function DashBoard({
     
   useEffect(() => {
     setBusy(true);
-    fetchSessionCount(appData.AppId).then((res) => res.json()) 
+    fetchSessionCount(appData.AppId,appData.userEmail).then((res) => res.json()) 
     .then((jsonResponse) => {
        if(jsonResponse.data!=null){
          let counts = jsonResponse.data ?? [];
