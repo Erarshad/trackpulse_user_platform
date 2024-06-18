@@ -25,6 +25,9 @@ function AppInsight({
             </div>
 
         </div>
+        {/* =====nav bar ended */}
+
+
     </>)
 
 }
