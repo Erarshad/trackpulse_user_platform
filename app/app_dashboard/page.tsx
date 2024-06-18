@@ -27,6 +27,7 @@ export default function DashBoard({
   const [sessionsWithinMonth, setSessionsWithinMonth] = useState(0);
   const [events, setEvents]= useState<eventData[]>([]);
   const [isBusy, setBusy] = useState(true);
+  const [isExpired, setExpired] = useState<Date>();
   let [currentPage,setCurrentPage]=useState(1);
   let appData= JSON.parse(searchParams.query) as AppData;
 
@@ -58,6 +59,7 @@ export default function DashBoard({
           setTotalSessions(counts.total_events);
           setSessionsInAWeek(counts.events_last_7_days);
           setSessionsWithinMonth(counts.events_last_30_days);
+          setExpired(onlyDate(appData.Expiry));
          }
        }
     })
@@ -77,6 +79,12 @@ export default function DashBoard({
    }else{
 
     return (<>
+           {/* top notification */}
+      { isExpired != null && isExpired < onlyDate() ?
+        <div className="w-full p-1 bg-gradient-to-r from-red-500 to-orange-500 text-white font-bold flex items-center justify-center">
+          Your plan has expired. Please upgrade to continue using our service. If you do not update the plan, your data will be removed after 30 days.
+        </div>:<></>
+     }
         {/* navbar started */}
         <div className={`navbar sticky top-0 z-50 ${headerThemeColor}`}>
         <div className="navbar-start">
@@ -146,6 +154,9 @@ export default function DashBoard({
    </div>:<></>}
     {/* --- */}
    <Session_list event={events} ></Session_list>
+
+
+
 
               
 
