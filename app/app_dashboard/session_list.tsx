@@ -20,7 +20,7 @@ export default function Session_list(eventItems:events){
           <tbody>
             {/* row 1 */}
             {
-              eventItems.event.map((event)=>( <tr className="hover">
+              eventItems.event.map((event)=>( <tr className="hover" key={event.guestId}>
                 <td>{new Date(event.date).toDateString()}</td>
                 <td>{JSON.parse(event.appVisitordetail).country}</td>
                 <td>{JSON.parse(event.appVisitordetail).device}</td>

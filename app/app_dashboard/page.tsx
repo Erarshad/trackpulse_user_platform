@@ -153,7 +153,7 @@ export default function DashBoard({
       }} >Next</button>
    </div>:<></>}
     {/* --- */}
-   <Session_list event={events} ></Session_list>
+   <Session_list event={events}></Session_list>
 
 
 
