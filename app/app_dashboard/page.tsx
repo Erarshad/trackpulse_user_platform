@@ -27,8 +27,25 @@ export default function DashBoard({
   const [sessionsWithinMonth, setSessionsWithinMonth] = useState(0);
   const [events, setEvents]= useState<eventData[]>([]);
   const [isBusy, setBusy] = useState(true);
+  let [currentPage,setCurrentPage]=useState(1);
   let appData= JSON.parse(searchParams.query) as AppData;
-  let currentPage=1;
+
+  function getTheEvents(page:number,initialFetch:boolean){
+    if(initialFetch==true){ //if it is not a call for first page 
+      setBusy(true);
+    }
+    fetchEvents(page,appData.userEmail,appData.AppId).then((res)=>res.json()).then((jsonResponse)=>{
+      let eventsData = jsonResponse.data ?? [];
+      setEvents(eventsData);
+    }).catch((error) => {
+      console.error('Error fetching events:', error);
+   });
+
+   if(initialFetch==false){
+    setBusy(false);
+   }
+
+  }
     
   useEffect(() => {
     setBusy(true);
@@ -48,12 +65,7 @@ export default function DashBoard({
         console.error('Error fetching counts of session:', error);
     });
 
-    fetchEvents(currentPage,appData.userEmail,appData.AppId).then((res)=>res.json()).then((jsonResponse)=>{
-      let eventsData = jsonResponse.data ?? [];
-      setEvents(eventsData);
-    }).catch((error) => {
-      console.error('Error fetching events:', error);
-   });
+     getTheEvents(currentPage,true);
 
     setBusy(false);
   }, []);
@@ -120,8 +132,17 @@ export default function DashBoard({
    {/* INFO TILES ENDED */}
    { totalSessions>0?
    <div className="px-2 join items-end justify-end flex">
-    <button className={`join-item btn btn-outline ${currentPage==1?"btn-disabled":""} border-yellow-600 `}>Previous page</button>
-      <button className={`join-item btn btn-outline border-yellow-600`}>Next</button>
+    <button className={`join-item btn btn-outline ${currentPage==1?"btn-disabled":""} border-yellow-600 `} onClick={()=>{
+      currentPage--;
+      setCurrentPage(currentPage);
+      getTheEvents(currentPage,false);
+    }}>Previous page</button>
+      <button className={`join-item btn btn-outline ${events.length==0?"btn-disabled":""} border-yellow-600`}onClick={()=>{
+        currentPage++;
+        setCurrentPage(currentPage);
+        getTheEvents(currentPage,false);
+ 
+      }} >Next</button>
    </div>:<></>}
     {/* --- */}
    <Session_list event={events} ></Session_list>
