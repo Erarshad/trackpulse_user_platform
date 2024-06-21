@@ -93,3 +93,19 @@ export async function fetchEvents(page:number,email:string,appId:string){
 
     return res;
 }
+
+export async function fetchSpecificEvent(email:string,guestId:string,appId:string){
+    const res= await fetch("http://127.0.0.1:3300/render/getAppEvent",{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            "userEmail":email,
+            "AppId":appId,
+            "guestId":guestId
+        })
+    });
+
+    return res;
+}

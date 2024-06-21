@@ -11,8 +11,11 @@ interface events{
 export default function Session_list(eventItems:events){
   const router = useRouter();
 
-  const handleClick = () => {
-    router.push(`/app_insight?query=${encodeURI(JSON.stringify(eventItems.appData))}`);
+  const handleClick = (guestId:string) => {
+    router.push(`/app_insight?query=${encodeURI(JSON.stringify({
+      "appdata":eventItems.appData,
+      "guestId":guestId
+    }))}`);
    
   }
 
@@ -34,7 +37,7 @@ export default function Session_list(eventItems:events){
             eventItems.event.map((event) => (
              
                   <tr className="hover  cursor-pointer" key={event.guestId} onClick={()=>{
-                    handleClick();
+                    handleClick(event.guestId);
                   }}>
                     <td>{new Date(event.date).toDateString()}</td>
                     <td>{JSON.parse(event.appVisitordetail).country}</td>
