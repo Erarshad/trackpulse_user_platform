@@ -7,6 +7,7 @@ import { getEvents } from './test_event';
 import page from "@/public/page.png";
 import { faLongArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExclamationCircle} from "@fortawesome/free-solid-svg-icons";
 
 interface sessionEvent {
   appSession: any
@@ -14,22 +15,20 @@ interface sessionEvent {
 
 
 export const AppSessionTabBody = (appSessionEvent: sessionEvent) => {
-  let userSession = appSessionEvent.appSession;
+  let userSession = appSessionEvent.appSession??{};
   const [isExpand, setExpand] = useState(false);
   const [currentPage, setCurrentPage] = useState("");
-  console.log(currentPage);
-  
-  console.log( userSession[currentPage]);
+
   
 
   useEffect(() => {
-    if (isExpand == true) {
+    if (isExpand == true && currentPage!=null && setCurrentPage!=null) {
       // Place your third-party library function here
       new rrwebPlayer({
         target: document.getElementById("session")!,
         props: {
-          events: userSession[currentPage]??[],
-          autoPlay:false
+          events: userSession[currentPage] ?? [],
+          autoPlay: false
         },
 
 
@@ -67,9 +66,13 @@ export const AppSessionTabBody = (appSessionEvent: sessionEvent) => {
 
     }
 
+    
+
   }, [isExpand]);
   if (isExpand == false) {
-    return (<>
+    return (<> 
+    
+    { Object.keys(userSession).length>0?
       <div className="container mx-auto py-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-20">
 
@@ -97,7 +100,14 @@ export const AppSessionTabBody = (appSessionEvent: sessionEvent) => {
 
 
         </div>
-      </div>
+      </div>:<div className="h-screen flex items-center justify-center">
+             <FontAwesomeIcon className="h-10 w-10" icon={faExclamationCircle} />
+                
+             <h1 className="font-bold px-2">No app session was found.</h1>
+              
+            </div>
+
+        }
 
 
 

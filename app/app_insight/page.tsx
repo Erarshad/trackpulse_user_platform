@@ -83,7 +83,7 @@ function AppInsight({
                 }}>App Session</a>
             </div>
              { currentTab==4?
-             <AppSessionTabBody appSession={getSession} ></AppSessionTabBody>:<></>
+               <AppSessionTabBody appSession={getSession} ></AppSessionTabBody>:<></>
              }
 
 
