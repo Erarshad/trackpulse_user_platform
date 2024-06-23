@@ -10,6 +10,7 @@ import { fetchEvents, fetchSpecificEvent } from "@/services/network";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import Loader from "../utils/loader";
 import { json } from "stream/consumers";
+import { EventTab } from "./event_tab";
 
 function AppInsight({
     searchParams
@@ -20,6 +21,7 @@ function AppInsight({
 }) {
     const [currentTab, setTabIdx] = useState(1);
     const [getSession, setSession] = useState({});
+    const [getEvent, setEvent] = useState({});
     //from appdashboard sessiion list 
     let carryForwardedData = JSON.parse(searchParams.query);
     let appData = (carryForwardedData.appdata) as AppData;
@@ -32,6 +34,7 @@ function AppInsight({
                 let eventData = jsonResponse.data;
                 if (eventData != null) {
                     setSession(JSON.parse(eventData.appSession));
+                    setEvent(JSON.parse(eventData.appEvents));
                 }
             }
 
@@ -84,6 +87,9 @@ function AppInsight({
             </div>
              { currentTab==4?
                <AppSessionTabBody appSession={getSession} ></AppSessionTabBody>:<></>
+             }
+             { currentTab==3?
+               <EventTab appEvents={getEvent}  ></EventTab>:<></>
              }
 
 

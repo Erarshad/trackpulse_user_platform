@@ -76,7 +76,7 @@ export const AppSessionTabBody = (appSessionEvent: sessionEvent) => {
       <div className="container mx-auto py-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-20">
 
-          {Object.keys(userSession).map((key, index) => (<>
+          {Object.keys(userSession).map((key, index) => (<div key={key}>
             {/* ---tile code- */}
             <div className={`card bg-transparent shadow-xl border border-yellow-600 cursor-pointer`} onClick={() => {
               setCurrentPage(key);
@@ -94,7 +94,7 @@ export const AppSessionTabBody = (appSessionEvent: sessionEvent) => {
               </div>
             </div>
             {/* --------tile code ended---- */}
-          </>
+          </div>
           ))}
 
 
