@@ -19,22 +19,60 @@ interface sessionEvent {
     appEvents: any
 }
 
-function analyzeClickEvents(event:object){
-    console.log(event);
-
   
+function analyzeClickEvents(event: any,currentPage:string) {
+    console.log(event);
+    let count=1;
+    let clicks=event[currentPage].clicks;
+    let processingEvent=clicks[0];
+    let index=1;
+    //  let clickEvent = targetType + ":ttid/:" + targetText + ":ttid/:" + targetId + ":ttid/:" + targetClass;
+    while(index<clicks.length){
+        if(clicks[index]==clicks[index-1]){
+             count++;
+            let element = clicks[index].split(":")[0];
+
+        }else{
+            console.log("count: "+count+" processingEvent: "+processingEvent);
+
+            count=1;
+            processingEvent=clicks[index];
+        }
+
+
+
+
+       
+        
+        
+
+        index++;
+    }
+
+    console.log("last event count: "+count+" processingEvent: "+processingEvent);
+
+
+
 }
 
-function analyzeScrollEvents(event:object){
+function analyzeScrollEvents(event: any, currentPage:string) {
 
 }
+
 
 export const EventTab = (appSessionEvent: sessionEvent) => {
   let recordedEvent = appSessionEvent.appEvents??{};
   const [isExpand, setExpand] = useState(false);
   const [currentPage, setCurrentPage] = useState("");
-  analyzeClickEvents(recordedEvent);
-  analyzeScrollEvents(recordedEvent);
+  if(isExpand){
+
+    analyzeClickEvents(recordedEvent,currentPage);
+    analyzeScrollEvents(recordedEvent,currentPage);
+
+  }
+
+
+
 
 
   if (isExpand == false) {
@@ -83,7 +121,15 @@ export const EventTab = (appSessionEvent: sessionEvent) => {
   } else {
 
     return (<>
-        <ul className="steps steps-vertical">
+
+        <div className="flex justify-start w-full bg-transparent px-4 py-4">
+            <FontAwesomeIcon icon={faLongArrowLeft} onClick={() => {
+                setExpand(false);
+            }} className='h-5 cursor-pointer'></FontAwesomeIcon>
+        </div>
+
+
+        <ul className="steps steps-vertical p-4">
         <li className="step">Click</li>
         <li className="step">Choose plan</li>
         <li className="step">Purchase</li>
