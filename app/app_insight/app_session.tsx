@@ -19,8 +19,6 @@ export const AppSessionTabBody = (appSessionEvent: sessionEvent) => {
   const [isExpand, setExpand] = useState(false);
   const [currentPage, setCurrentPage] = useState("");
 
-  
-
   useEffect(() => {
     if (isExpand == true && currentPage!=null && setCurrentPage!=null) {
       // Place your third-party library function here
@@ -48,6 +46,11 @@ export const AppSessionTabBody = (appSessionEvent: sessionEvent) => {
       const handleFullScreenChange = () => {
         if (document.fullscreenElement) {
           console.log('Entered full screen');
+          let rr_player = Array.from(document.getElementsByClassName('rr-player') as HTMLCollectionOf<HTMLElement>)
+          let player__frame = Array.from(document.getElementsByClassName('rr-player__frame') as HTMLCollectionOf<HTMLElement>)
+          player__frame[0].style.width =`${window.innerWidth}`
+          rr_player[0].style.width = `${window.innerWidth}`
+          player__frame[0].style.height = `${window.innerHeight}`
           // Handle full-screen entry
         } else {
           let rr_player = Array.from(document.getElementsByClassName('rr-player') as HTMLCollectionOf<HTMLElement>)
