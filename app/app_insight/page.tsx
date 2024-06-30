@@ -11,6 +11,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import Loader from "../utils/loader";
 import { json } from "stream/consumers";
 import { EventTab } from "./event_tab";
+import { AppErrorTab } from "./app_error";
 
 function AppInsight({
     searchParams
@@ -22,6 +23,7 @@ function AppInsight({
     const [currentTab, setTabIdx] = useState(1);
     const [getSession, setSession] = useState({});
     const [getEvent, setEvent] = useState({});
+    const [getError,setError]=useState({});
     //from appdashboard sessiion list 
     let carryForwardedData = JSON.parse(searchParams.query);
     let appData = (carryForwardedData.appdata) as AppData;
@@ -35,6 +37,7 @@ function AppInsight({
                 if (eventData != null) {
                     setSession(JSON.parse(eventData.appSession));
                     setEvent(JSON.parse(eventData.appEvents));
+                    setError(JSON.parse(eventData.appErrors));
                 }
             }
 
@@ -86,10 +89,14 @@ function AppInsight({
                 }}>App Session</a>
             </div>
              { currentTab==4?
-               <AppSessionTabBody appSession={getSession} ></AppSessionTabBody>:<></>
+               <AppSessionTabBody appSession={getSession??{}} ></AppSessionTabBody>:<></>
              }
              { currentTab==3?
-               <EventTab appEvents={getEvent}  ></EventTab>:<></>
+               <EventTab appEvents={getEvent??{}}  ></EventTab>:<></>
+             }
+
+            { currentTab==2?
+               <AppErrorTab appError={getError??{}} ></AppErrorTab>:<></>
              }
 
 

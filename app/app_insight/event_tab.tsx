@@ -43,7 +43,7 @@ interface sessionEvent {
 }
 
 interface AnalysisOfEvent{
-  key:number;
+  key:any;
   count:number,
   isscrollData:boolean,
   scrollData:number,
@@ -154,7 +154,7 @@ function analyzeScrollEvents(event: any, currentPage:string) {
         if(count>=20 && currentProcessingScrollEvent=="down"){
           //user is exploring and hard feel problems while finding content
           AnalyzedEvents.push({
-            "key":index,
+            "key":index+"x",
             "count":count,
             "targetType":"",
             "targetText":"",
@@ -167,7 +167,7 @@ function analyzeScrollEvents(event: any, currentPage:string) {
         }else{
           //user is confused 
           AnalyzedEvents.push({
-            "key":index,
+            "key":index+"x",
             "count":count,
             "targetType":"",
             "targetText":"",
@@ -198,7 +198,7 @@ function analyzeScrollEvents(event: any, currentPage:string) {
       //user is exploring and hard feel problems while finding content
       // 1 means user is exploring and feels hard while finding content
       AnalyzedEvents.push({
-        "key":index,
+        "key":index+"x",
         "count":count,
         "targetType":"",
         "targetText":"",
@@ -213,7 +213,7 @@ function analyzeScrollEvents(event: any, currentPage:string) {
       //user is confused 
       //2 means user is confused and repeatedly scrolling up and down 
       AnalyzedEvents.push({
-        "key":index,
+        "key":index+"x",
         "count":count,
         "targetType":"",
         "targetText":"",
