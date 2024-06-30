@@ -7,11 +7,12 @@ import logo from "@/public/logo.png";
 import { useEffect, useState } from "react";
 import { AppSessionTabBody } from "./app_session";
 import { fetchEvents, fetchSpecificEvent } from "@/services/network";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faWarning,faMousePointer,faVideo,faCircleInfo} from "@fortawesome/free-solid-svg-icons";
 import Loader from "../utils/loader";
 import { json } from "stream/consumers";
 import { EventTab } from "./event_tab";
 import { AppErrorTab } from "./app_error";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function AppInsight({
     searchParams
@@ -75,27 +76,29 @@ function AppInsight({
             {/* =====nav bar ended */}
             {/* tab bar started */}
             <div role="tablist" className="tabs tabs-boxed">
-                <a role="tab" className={`tab  ${currentTab == 1 ? headerThemeColor : ""}`} onClick={() => {
+                <a role="tab" className={`tab  ${currentTab == 1 ? headerThemeColor : ""} font-semibold`} onClick={() => {
                     setTabIdx(1);
-                }}>All</a>
-                <a role="tab" className={`tab ${currentTab == 2 ? headerThemeColor : ""}`} onClick={() => {
+                }}><FontAwesomeIcon icon={faCircleInfo}  className="px-2 justify-center items-center"></FontAwesomeIcon> Detail</a>
+                  <a role="tab" className={`tab  ${currentTab == 2 ? headerThemeColor : ""} font-semibold`} onClick={() => {
                     setTabIdx(2);
-                }}>App Errors</a>
-                <a role="tab" className={`tab  ${currentTab == 3 ? headerThemeColor : ""}`} onClick={() => {
+                }}><FontAwesomeIcon icon={faVideo}  className="px-2 justify-center items-center"></FontAwesomeIcon> App session</a>
+                <a role="tab" className={`tab  ${currentTab == 3 ? headerThemeColor : ""} font-semibold`} onClick={() => {
                     setTabIdx(3);
-                }}>App Events</a>
-                <a role="tab" className={`tab  ${currentTab == 4 ? headerThemeColor : ""}`} onClick={() => {
+                }}><FontAwesomeIcon icon={faMousePointer} className="px-2 justify-center items-center"></FontAwesomeIcon>  App events</a>
+                <a role="tab" className={`tab ${currentTab == 4 ? headerThemeColor : ""} font-semibold`} onClick={() => {
                     setTabIdx(4);
-                }}>App Session</a>
+                }}><FontAwesomeIcon icon={faWarning} className="px-2 justify-center items-center"></FontAwesomeIcon> App errors</a>
+              
+              
             </div>
-             { currentTab==4?
+             { currentTab==2?
                <AppSessionTabBody appSession={getSession??{}} ></AppSessionTabBody>:<></>
              }
              { currentTab==3?
                <EventTab appEvents={getEvent??{}}  ></EventTab>:<></>
              }
 
-            { currentTab==2?
+            { currentTab==4?
                <AppErrorTab appError={getError??{}} ></AppErrorTab>:<></>
              }
 

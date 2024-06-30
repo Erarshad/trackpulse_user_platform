@@ -67,7 +67,26 @@ export const AppErrorTab = (errors:sessionError) => {
             </div>
     
                 {/* code for steps of events */}
-    
+
+               {/* code for steps of events */}
+
+   
+               <ul className="steps steps-vertical p-4">
+                {   (errors.appError[currentPage].split(",\n") as [])?.map((key, index) => (
+                    <li className="step" key={key}>{errors.appError[currentPage].split(",\n")[index]}</li>
+                       
+
+                   )
+                 )
+
+
+
+                }
+
+            </ul>
+
+          {/* code for steps of events */}
+
        
               
     
