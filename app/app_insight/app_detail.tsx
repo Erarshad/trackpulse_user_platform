@@ -24,7 +24,7 @@ export const AppDetailTab = (data:props) => {
               <ListTile icon={faLocation} title={`Guest's IP`} subtitle={data?.visiterDetails?.ip??""}></ListTile>
               <ListTile icon={faMap} title={`Guest's Country`} subtitle={data?.visiterDetails?.country??""}></ListTile>
               <ListTile icon={faGamepad} title={`Guest's Device`} subtitle={data?.visiterDetails?.device??""}></ListTile>
-              <ListTile icon={faWindowRestore} title={`Returning guest`} subtitle={data?.visiterDetails?.isReturning??""}></ListTile>
+              <ListTile icon={faWindowRestore} title={`Returning guest`} subtitle={(data?.visiterDetails?.isReturning==="true")?"Yes":"No"}></ListTile>
               <ListTile icon={faIdBadge} title={`AppId`} subtitle={data.appId}></ListTile>
                   
                 </div>
