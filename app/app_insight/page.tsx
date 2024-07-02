@@ -13,6 +13,8 @@ import { json } from "stream/consumers";
 import { EventTab } from "./event_tab";
 import { AppErrorTab } from "./app_error";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { AppDetailTab } from "./app_detail";
+import App from "next/app";
 
 function AppInsight({
     searchParams
@@ -25,6 +27,9 @@ function AppInsight({
     const [getSession, setSession] = useState({});
     const [getEvent, setEvent] = useState({});
     const [getError,setError]=useState({});
+    const [guestVisitDate,setGuestVisitDate]=useState();
+    const [guestDetails,setGuestDetails]=useState({});
+
     //from appdashboard sessiion list 
     let carryForwardedData = JSON.parse(searchParams.query);
     let appData = (carryForwardedData.appdata) as AppData;
@@ -39,6 +44,10 @@ function AppInsight({
                     setSession(JSON.parse(eventData.appSession));
                     setEvent(JSON.parse(eventData.appEvents));
                     setError(JSON.parse(eventData.appErrors));
+                    console.log("event data is "+eventData.date);
+                    setGuestVisitDate(eventData.date);
+                    setGuestDetails(JSON.parse(eventData.appVisitordetail));
+
                 }
             }
 
@@ -101,6 +110,10 @@ function AppInsight({
             { currentTab==4?
                <AppErrorTab appError={getError??{}} ></AppErrorTab>:<></>
              }
+
+             { currentTab==1?
+               <AppDetailTab visitDate={guestVisitDate??new Date()} visiterDetails={guestDetails} guestId={guestId} appId={appData.AppId}></AppDetailTab>:<></>
+             }  
 
 
 
