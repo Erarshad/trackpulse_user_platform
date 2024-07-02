@@ -8,6 +8,7 @@ import page from "@/public/page.png";
 import { faLongArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamationCircle} from "@fortawesome/free-solid-svg-icons";
+import ProgressBar from '../utils/progress_bar';
 
 //this for analysis algorithm
 const HIGH_CLICK_THRESHOLD = 3;
@@ -306,11 +307,17 @@ export const EventTab = (appSessionEvent: sessionEvent) => {
   let recordedEvent = appSessionEvent.appEvents??{};
   const [isExpand, setExpand] = useState(false);
   const [currentPage, setCurrentPage] = useState("");
-  if(isExpand){
-    AnalyzedEvents=[];
-    analyzeClickEvents(recordedEvent,currentPage);
-    analyzeScrollEvents(recordedEvent,currentPage);
-  }
+  const [isBusy,setBusy]=useState(true);
+  
+  useEffect(() => {
+    if(isExpand){
+      AnalyzedEvents=[];
+      setBusy(true);
+      analyzeClickEvents(recordedEvent,currentPage);
+      analyzeScrollEvents(recordedEvent,currentPage);
+      setBusy(false);
+    }
+  }, [isExpand])
 
 
 
@@ -360,7 +367,12 @@ export const EventTab = (appSessionEvent: sessionEvent) => {
 
 
     </>);
-  } else {
+  } else if(isExpand==true && isBusy==true){
+    return (
+      <ProgressBar></ProgressBar>
+    );
+  }
+  else {
 
     return (<>
 
@@ -395,7 +407,6 @@ export const EventTab = (appSessionEvent: sessionEvent) => {
             </ul>
 
           {/* code for steps of events */}
-
 
      
 
