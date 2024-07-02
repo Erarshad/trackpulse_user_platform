@@ -321,9 +321,6 @@ export const EventTab = (appSessionEvent: sessionEvent) => {
 
 
 
-
-
-
   if (isExpand == false) {
     return (<> 
     
