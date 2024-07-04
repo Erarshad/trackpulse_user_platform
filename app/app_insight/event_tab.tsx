@@ -90,7 +90,7 @@ function analyzeClickEvents(event: any,currentPage:string) {
         index++;
       }
 
-      let element=processingEvent.split(":ttid/:");
+      let element=(processingEvent??"").split(":ttid/:");
      // console.log("last event count: " + count + " processingEvent: " + processingEvent);
       AnalyzedEvents.push({
         "key":index,
