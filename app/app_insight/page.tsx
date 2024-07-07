@@ -112,7 +112,7 @@ function AppInsight({
              }
 
              { currentTab==1?
-               <AppDetailTab visitDate={guestVisitDate??new Date()} visiterDetails={guestDetails} guestId={guestId} appId={appData.AppId}></AppDetailTab>:<></>
+               <AppDetailTab visitDate={guestVisitDate??""} visiterDetails={guestDetails} guestId={guestId} appId={appData.AppId}></AppDetailTab>:<></>
              }  
 
 
