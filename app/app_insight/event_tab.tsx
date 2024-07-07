@@ -12,7 +12,7 @@ import ProgressBar from '../utils/progress_bar';
 
 //this for analysis algorithm
 const HIGH_CLICK_THRESHOLD = 3;
-const HIGH_SCROLL_THRESHOLD = 20;
+const HIGH_SCROLL_THRESHOLD = 30;
 /***
  * intiuition:  
  * ======================>
@@ -61,7 +61,7 @@ function analyzeClickEvents(event: any,currentPage:string) {
     console.log(event);
     let count=1;
     let clicks=event[currentPage].clicks;
-    if(clicks!=null){
+    if(clicks!=null && clicks.length>0){
       let processingEvent = clicks[0];
       let index = 1;
       //  let clickEvent = targetType + ":ttid/:" + targetText + ":ttid/:" + targetId + ":ttid/:" + targetClass;
