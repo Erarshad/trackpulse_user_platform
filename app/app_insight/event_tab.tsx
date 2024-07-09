@@ -12,7 +12,7 @@ import ProgressBar from '../utils/progress_bar';
 
 //this for analysis algorithm
 const HIGH_CLICK_THRESHOLD = 3;
-const HIGH_SCROLL_THRESHOLD = 30;
+const HIGH_SCROLL_THRESHOLD = 40;
 /***
  * intiuition:  
  * ======================>
@@ -278,10 +278,54 @@ function analyzeTheEventForDetails(event: AnalysisOfEvent){
   if (event.isscrollData == false) {
     if (event.count <= 2) {
       //it is interest
-      return `user clicks ${event.count} times, highlights their strong interest in the content on an element with class ${event.targetClass}, component ID ${event.targetId}, and target element ${event.targetType}, element content is ${event.targetText}.`;
+      return ( 
+        <div>
+         <p>user clicks {event.count} times, highlights their strong interest in the content on mentioned elements</p>
+          <ul className="space-y-2">
+            <li className="flex items-center">
+              <div className="badge  mr-2">1</div>
+              <span className='text-red-400'>Associated Class: {event.targetClass}</span>
+            </li>
+            <li className="flex items-center">
+              <div className="badge  mr-2">2</div>
+              <span className='text-red-400'>Associated ID: {event.targetId}</span>
+            </li>
+            <li className="flex items-center">
+              <div className="badge mr-2">3</div>
+              <span className='text-red-400'>Associated Type: {event.targetType}</span>
+            </li>
+            <li className="flex items-center">
+              <div className="badge mr-2">4</div>
+              <span className='text-red-400'>Associated Text: {event.targetText}</span>
+            </li>
+          </ul>
+      </div>);
+   
     } else if (event.count >= HIGH_CLICK_THRESHOLD) {
       //it is frustration
-      return `user clicks ${event.count} times, highlights their frustration in the content on an element with class ${event.targetClass}, component ID ${event.targetId}, and target element ${event.targetType}, element content is ${event.targetText}.`;
+      return ( 
+        <div>
+         <p>user clicks {event.count} times, highlights their frustration in the content on mentioned elements</p>
+          <ul className="space-y-2">
+            <li className="flex items-center">
+              <div className="badge  mr-2">1</div>
+              <span className='text-red-400'>Associated Class: {event.targetClass}</span>
+            </li>
+            <li className="flex items-center">
+              <div className="badge  mr-2">2</div>
+              <span className='text-red-400'>Associated ID: {event.targetId}</span>
+            </li>
+            <li className="flex items-center">
+              <div className="badge mr-2">3</div>
+              <span className='text-red-400'>Associated Type: {event.targetType}</span>
+            </li>
+            <li className="flex items-center">
+              <div className="badge mr-2">4</div>
+              <span className='text-red-400'>Associated Text: {event.targetText}</span>
+            </li>
+          </ul>
+      </div>);
+   
 
     }
   } else {
