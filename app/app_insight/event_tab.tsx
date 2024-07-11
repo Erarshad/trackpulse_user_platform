@@ -58,9 +58,11 @@ interface AnalysisOfEvent{
 let AnalyzedEvents:AnalysisOfEvent[]=[];
   
 function analyzeClickEvents(event: any,currentPage:string) {
-    console.log(event);
+    // console.log(event);
+   
     let count=1;
     let clicks=event[currentPage].clicks;
+    console.log(clicks);
     if(clicks!=null && clicks.length>0){
       let processingEvent = clicks[0];
       let index = 1;
@@ -112,6 +114,7 @@ function analyzeClickEvents(event: any,currentPage:string) {
 function analyzeScrollEvents(event: any, currentPage:string) {
   console.log(event);
   let scroll=event[currentPage].scroll;
+  console.log(scroll);
   if(scroll!=null){
     let count= scroll.length>0?1:0;
   //   "scroll": [
@@ -352,14 +355,17 @@ export const EventTab = (appSessionEvent: sessionEvent) => {
   const [isExpand, setExpand] = useState(false);
   const [currentPage, setCurrentPage] = useState("");
   const [isBusy,setBusy]=useState(true);
+  const [quantifiedEvents, setQuantifiedEvents] = useState<AnalysisOfEvent[]>([]);
   
   useEffect(() => {
     if(isExpand){
       AnalyzedEvents=[];
+      setQuantifiedEvents([]);
       setBusy(true);
       analyzeClickEvents(recordedEvent,currentPage);
       analyzeScrollEvents(recordedEvent,currentPage);
       setBusy(false);
+      setQuantifiedEvents(AnalyzedEvents);
     }
   }, [isExpand])
 
@@ -377,6 +383,7 @@ export const EventTab = (appSessionEvent: sessionEvent) => {
             <div className={`card bg-transparent shadow-xl border border-yellow-600 cursor-pointer`} key={key} onClick={() => {
               setCurrentPage(key);
               setExpand(true);
+            
             }}>
               <figure className="px-10 pt-10"> <Image src={page} alt={'app'} width={200} height={30} style={{ objectFit: 'contain' }} />   </figure>
               <div className="card-body ">
@@ -427,14 +434,16 @@ export const EventTab = (appSessionEvent: sessionEvent) => {
 
    
             <ul className="steps steps-vertical p-4">
-                {   AnalyzedEvents.map((event) => (
-
+                {  
+                
+                quantifiedEvents.map((event) => (
+                 
                      <li className="step" key={event.key}>
                       <div className="collapse collapse-arrow bg-base-200">
                       <input type="radio" name="my-accordion-2"/>
                       <div className="collapse-title text-lg font-medium">{analyzeTheEventForLabel(event)}</div>
                         <div className="collapse-content">
-                          <p>{analyzeTheEventForDetails(event)}</p>
+                          <span>{analyzeTheEventForDetails(event)}</span>
                         </div>
                     </div>
                    </li>
