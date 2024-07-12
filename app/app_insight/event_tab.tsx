@@ -436,9 +436,9 @@ export const EventTab = (appSessionEvent: sessionEvent) => {
             <ul className="steps steps-vertical p-4">
                 {  
                 
-                quantifiedEvents.map((event) => (
+                quantifiedEvents.map((event,index) => (
                  
-                     <li className="step" key={event.key}>
+                     <li className="step" key={index}>
                       <div className="collapse collapse-arrow bg-base-200">
                       <input type="radio" name="my-accordion-2"/>
                       <div className="collapse-title text-lg font-medium">{analyzeTheEventForLabel(event)}</div>

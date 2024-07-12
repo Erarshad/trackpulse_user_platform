@@ -16,6 +16,19 @@ interface sessionError {
 export const AppErrorTab = (errors:sessionError) => {
     const [isExpand, setExpand] = useState(false);
     const [currentPage, setCurrentPage] = useState("");
+    const [errorOnCurrentPage, setErrorOnCurrentPage] = useState<any[]>([]);
+
+    useEffect(() => {
+        
+        if(isExpand==true){
+            setErrorOnCurrentPage(errors.appError[currentPage]);
+         
+        }
+    
+
+    }, [isExpand])
+
+    
     if (isExpand == false) {
         return (<>
             {Object.keys(errors.appError).length > 0 ?
@@ -72,16 +85,50 @@ export const AppErrorTab = (errors:sessionError) => {
 
    
                <ul className="steps steps-vertical p-4">
-                {   (errors.appError[currentPage].split(",\n") as [])?.map((key, index) => (
-                    <li className="step" key={key}>{errors.appError[currentPage].split(",\n")[index]}</li>
-                       
 
-                   )
-                 )
+               {  
+                
+                  errorOnCurrentPage.map((error,index) => (
+                    <li className="step" key={index}>
+                    <div className="collapse collapse-arrow bg-base-200">
+                    <input type="radio" name="my-accordion-2"/>
+                    <div className="collapse-title text-lg font-medium">{error.error??""}</div>
+                      <div className="collapse-content">
+                      <li className="flex items-center">
+                        <div className="badge  mr-2">1</div>
+                        <span className='text-red-400'>Error: {error.error??""}</span>
+                        </li>
+                        <li className="flex items-center">
+                        <div className="badge  mr-2">2</div>
+                        <span className='text-red-400'>At: {error.url??""}</span>
+                        </li>
+                        <li className="flex items-center">
+                        <div className="badge mr-2">3</div>
+                        <span className='text-red-400'>line no: {error.line??""}</span>
+                        </li>
+                        <li className="flex items-center">
+                        <div className="badge mr-2">4</div>
+                        <span className='text-red-400'>column no: {error.column??""}</span>
+                        </li>
+                        <li className="flex items-center">
+                        <div className="badge mr-2">5</div>
+                        <span className='text-red-400'>Trace: {error["Stack Trace"]}</span>
+                        </li>
+                        
+                      </div>
+                  </div>
+                 </li>
+
+                   
+                   ))
 
 
 
                 }
+
+             
+
+                
 
             </ul>
 
