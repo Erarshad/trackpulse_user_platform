@@ -25,6 +25,7 @@ export default function DashBoard({
   const [totalSessions, setTotalSessions] = useState(0);
   const [SessionsInAWeek, setSessionsInAWeek] = useState(0);
   const [sessionsWithinMonth, setSessionsWithinMonth] = useState(0);
+  const [sessionsWithinToday, setSessionsWithinToday] = useState(0);
   const [events, setEvents]= useState<eventData[]>([]);
   const [isBusy, setBusy] = useState(true);
   const [isExpired, setExpired] = useState<Date>();
@@ -59,6 +60,7 @@ export default function DashBoard({
           setTotalSessions(counts.total_events);
           setSessionsInAWeek(counts.events_last_7_days);
           setSessionsWithinMonth(counts.events_last_30_days);
+          setSessionsWithinToday(counts.events_today);
           setExpired(onlyDate(appData.Expiry));
          }
        }
@@ -100,43 +102,51 @@ export default function DashBoard({
       </div>
      {/* navbar ended, todo at last we have to ceneteralized the nav bar\ */}
      <div className="container mx-auto p-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <div className="bg-primary p-4 text-white">
-            <div className='overflow-clip'>
-            <FontAwesomeIcon icon={faCalculator} className='mx-2 h-10 w-10'></FontAwesomeIcon>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="bg-primary p-4 text-white rounded-lg shadow-lg">
+          <div className="overflow-clip">
+            <FontAwesomeIcon icon={faCalculator} className="mx-2 h-10 w-10"></FontAwesomeIcon>
             <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl items-center justify-center">
               {millify(totalSessions)}
             </span>
-            </div>
-            <span className="px-3 text-sm sm:text-lg md:text-xl lg:text-2xl">
-             sessions in lifetime
-            </span>
-           
+          </div>
+          <span className="px-3 text-sm sm:text-lg md:text-xl lg:text-2xl">sessions in lifetime</span>
         </div>
-        <div className="bg-secondary p-4 text-white">
-        <div className='overflow-clip'>
-            <FontAwesomeIcon icon={faCalculator} className='mx-2 h-10 w-10'></FontAwesomeIcon>
+
+        <div className="bg-secondary p-4 text-white rounded-lg shadow-lg">
+          <div className="overflow-clip">
+            <FontAwesomeIcon icon={faCalculator} className="mx-2 h-10 w-10"></FontAwesomeIcon>
             <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl items-center justify-center">
               {millify(sessionsWithinMonth)}
             </span>
-            </div>
-            <span className="px-3 text-xs sm:text-lg md:text-xl lg:text-2xl">
-              sessions in month
-            </span>
-           
+          </div>
+          <span className="px-3 text-xs sm:text-lg md:text-xl lg:text-2xl">sessions in month</span>
         </div>
-        <div className="bg-indigo-500 p-4 text-white">  <div className='overflow-clip'>
-            <FontAwesomeIcon icon={faCalculator} className='mx-2 h-10 w-10'></FontAwesomeIcon>
+
+        <div className="bg-indigo-500 p-4 text-white rounded-lg shadow-lg">
+          <div className="overflow-clip">
+            <FontAwesomeIcon icon={faCalculator} className="mx-2 h-10 w-10"></FontAwesomeIcon>
             <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl items-center justify-center">
               {millify(SessionsInAWeek)}
             </span>
-            </div>
-            <span className="px-3 text-xs sm:text-lg md:text-xl lg:text-2xl">
-              sessions in week
+          </div>
+          <span className="px-3 text-xs sm:text-lg md:text-xl lg:text-2xl">sessions in week</span>
+        </div>
+
+        <div className="bg-primary p-4 text-white rounded-lg shadow-lg">
+          <div className="overflow-clip">
+            <FontAwesomeIcon icon={faCalculator} className="mx-2 h-10 w-5"></FontAwesomeIcon>
+            <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl items-center justify-center">
+              {millify(sessionsWithinToday)}
             </span>
-           </div>
+          </div>
+          <span className="px-3 text-sm sm:text-lg md:text-xl lg:text-2xl">Today's Sessions</span>
+        </div>
       </div>
     </div>
+  {/*========================================================= */}
+
+
    {/* INFO TILES ENDED */}
    { totalSessions>0?
    <div className="px-2 join items-end justify-end flex">
